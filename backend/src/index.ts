@@ -2,6 +2,7 @@ import express, { Express, NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { db } from "./db";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(
     origin: process.env.WHITELISTED_ORIGIN,
   })
 );
+app.use(bodyParser.json());
 
 app.get("/ping", (req: Request, res: Response) => {
   res.status(200).json({ message: "pong" });
@@ -20,10 +22,11 @@ app.get("/ping", (req: Request, res: Response) => {
 
 app.post(`/todos`, async (req: Request, res: Response, next: NextFunction) => {
   const body = req.body as { title: string };
+  console.log("body", req.body);
 
-  if (!body.title) {
+  if (!body?.title) {
     next({
-      mesage: "Title not send",
+      message: "title not send",
       status: 400,
     });
     return;
@@ -101,7 +104,7 @@ app.use(
       message: error.message || "Something went wrong",
       status: error.status || 500,
     };
-    console.log(`error ${error.message}`);
+    console.error(`Error:`, e);
     res.status(e.status).send(e.message);
   }
 );
