@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 
 async function pingBackend(): Promise<{ message: string }> {
-  const res = await fetch(`http://localhost:8080/ping`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ping`);
   const data = await res.json();
   return data;
 }
