@@ -7,7 +7,7 @@ const app: Express = express();
 const port = process.env.PORT;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Response from the backend server");
+  res.send("Response from the backend server is received");
 });
 
 app.listen(port, () => {

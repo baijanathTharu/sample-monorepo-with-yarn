@@ -8,7 +8,7 @@ export default function Home() {
         <meta name="description" content="Frontend Application" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main>Frontend</main>
+      <main>Hello, from frontend</main>
     </>
   );
 }
