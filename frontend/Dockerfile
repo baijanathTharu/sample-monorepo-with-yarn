@@ -1,21 +1,22 @@
-# BASE stage
-FROM node:18-alpine as BASE
+FROM node:18-alpine as DEV
 
 WORKDIR /src
+
+ENV NODE_ENV=development
 
 COPY package.json ./
 COPY yarn.lock ./
 COPY next.config.js ./
 
-EXPOSE 8080
-
-# DEV stage
-FROM BASE as DEV
-ENV NODE_ENV=development
-
 RUN yarn install
 
 COPY . .
 
-CMD [ "yarn", 'dev' ]
+EXPOSE 3000
+
+CMD [ "yarn", "dev" ]
+
+
+
+
 

@@ -7,9 +7,12 @@ services:
       target: DEV
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    command: >
+      sh -c "cd frontend && yarn dev"
     networks:
       - sample_monorepo
-    command: yarn dev
     volumes:
       - .:/src
   backend:
@@ -18,9 +21,13 @@ services:
       target: DEV
     ports:
       - "8080:8080"
+    command: >
+      sh -c "cd backend && yarn dev"
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
     networks:
       - sample_monorepo
-    command: yarn dev
     volumes:
       - .:/src
 
