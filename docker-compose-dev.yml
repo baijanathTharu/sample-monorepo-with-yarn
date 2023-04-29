@@ -8,8 +8,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV:development
-      - NEXT_PUBLIC_BACKEND_URL:http://localhost:8080
+      - NODE_ENV=development
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8080
     command: >
       sh -c "cd frontend && yarn dev"
     networks:
@@ -22,15 +22,18 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_USER:root
-      - POSTGRES_PASSWORD:admin
-      - POSTGRES_DB:sample_monorepo
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=sample_monorepo
     volumes:
       - ./db:/var/www/html
+    networks:
+      - sample_monorepo
   backend:
     build:
       context: ./backend
       target: DEV
+    restart: on-failure
     depends_on:
       - db
     ports:
@@ -38,10 +41,10 @@ services:
     command: >
       sh -c "cd backend && yarn dev"
     environment:
-      - NODE_ENV:development
-      - PORT:8080
-      - WHITELISTED_ORIGIN:http://localhost:3000
-      - DATABASE_URL:postgresql://root:admin@db/sample_monorepo
+      - NODE_ENV=development
+      - PORT=8080
+      - WHITELISTED_ORIGIN=http://localhost:3000
+      - DATABASE_URL=postgresql://root:admin@db/sample_monorepo?schema=public
     networks:
       - sample_monorepo
     volumes:

@@ -6,8 +6,11 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts",
-    "g": "prisma generate"
+    "g": "prisma generate",
+    "push": "prisma db push",
+    "reset": "prisma migrate reset --force",
+    "run:seed-script": "tsx src/seed.ts",
+    "dev": "yarn reset && yarn push && yarn run:seed-script && tsx watch src/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.13.0",
