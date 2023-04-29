@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  frontend:
+    build:
+      context: ./frontend/Dockerfile
+      target: DEV
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV: development
+    networks:
+      - sample_monorepo
+    command: yarn dev
+    volumes:
+      - .:/src
+  backend:
+    build:
+      context: ./backend/Dockerfile
+      target: DEV
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV: development
+    networks:
+      - sample_monorepo
+    command: yarn dev
+    volumes:
+      - .:/src
+
+networks:
+  sample_monorepo:
+    driver: bridge
