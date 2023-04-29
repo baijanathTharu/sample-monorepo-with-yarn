@@ -3,5 +3,11 @@
   "name": "sample-e2e-with-cypress",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "frontend",
+      "backend"
+    ]
+  }
 }
